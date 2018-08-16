@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width",initial-scale="1.0"/>
+    <title>Event Bus</title>
+</head>
+<body>
+<div id="app">
+    {{message}}<br/><br/>
+    <my-component></my-component>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+    let eventBus = new Vue();
+    Vue.component('my-component',
+        {
+            template:'<div>하위 컴포넌트<br/><button v-on:click="showLog">show</button></div>',
+            methods:{
+                showLog:function () {
+                    eventBus.$emit('triggerBus',100);
+                }
+            }
+        }
+    );
+    new Vue({
+        el:"#app",
+        data:{
+            message:'Event Bus'
+        },
+        created:function(){
+            eventBus.$on('triggerBus',function (val) {
+               console.log('이벤트로 전달 받은 값 :: ' + val);
+            });
+        }
+
+    });
+</script>
+</body>
+</html>

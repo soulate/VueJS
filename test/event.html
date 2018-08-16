@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width",initial-scale="1.0"/>
+    <title>Event</title>
+</head>
+<body>
+<div id="app">
+    {{message}}<br/><br/>
+    <my-component v-on:show-log="printText"></my-component>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+
+    Vue.component('my-component',
+        {
+            template:'<button v-on:click="showLog">show</button>',
+            methods:{
+                showLog:function () {
+                    //this.$emit('show-log');
+                    console.log("안보냄.")
+                }
+            }
+        }
+    );
+    new Vue({
+        el:"#app",
+        data:{
+            message:'Event'
+        },
+        methods: {
+            printText:function () {
+                console.log("receiced an Event");
+            }
+        }
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width",initial-scale="1.0"/>
+    <title>Named View</title>
+</head>
+<body>
+<div id="app">
+    <h3>네임드뷰</h3>
+    <router-view name="header"></router-view>
+    <router-view></router-view>
+    <router-view name="footer"></router-view>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+<script>
+
+    let Body = {template:'<div>This is Body</div>'};
+    let Header = {template:'<div>This is Headder</div>'};
+    let Footer = {template:'<div>This is Footer</div>'};
+
+    let router = new VueRouter({
+       routes:[
+           {
+               path: '/',
+               components: {
+                   default: Body,
+                   header: Header,
+                   footer: Footer
+               }
+           }
+       ]
+    });
+
+    var app = new Vue({
+       router
+    }).$mount("#app");
+
+</script>
+</body>
+</html>

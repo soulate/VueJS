@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width",initial-scale="1.0"/>
+    <title>Vue Nested Router</title>
+</head>
+<body>
+<div id="app">
+    Basic Page
+    <router-view></router-view>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+<script>
+    let User = {
+      template:'<div>User Component <br/>' +
+          '<router-view></router-view>' +
+          '</div>'
+    };
+
+    let userProfile = {
+      template: '<p>User Profile Component</p>'
+    };
+
+    let userPost = {
+        template: '<p>User Post Component</p>'
+    };
+
+    let routes = [
+        {
+            path:'/user',
+            component:User,
+            children:[
+                {
+                    path:'posts',
+                    component: userPost
+                },
+                {
+                    path:'profile',
+                    component:userProfile
+                }
+            ]
+        }
+    ];
+
+    var router = new VueRouter({
+        routes
+    });
+
+    new Vue({
+        'el':'#app',
+        router
+    });
+
+</script>
+</body>
+</html>

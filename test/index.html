@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    {{message}}<br/><br/>
+    <h3>첫번째 인스턴스;</h3>
+    <my-global-component></my-global-component><br/>
+    <my-local-component></my-local-component>
+  </div>
+  <br/>
+  <hr/>
+  <div id="app2">
+    <h3>두번째 인스턴스;</h3>
+    <my-global-component></my-global-component><br/>
+
+  </div>
+
+  <script>
+      const TAG = "[Vue DEBUG] ";
+      Vue.component('my-global-component',{
+          template:'<div><button>지역컴포넌트</button><br/>전역컴포넌트가 등록되었습니다.</div>'
+      });
+
+      let my_local_component = {
+          template:'<div><button>로컬컴포넌트</button><br/>로컬컴포넌트가 등록되었습니다.</div>'
+      };
+
+      new Vue({
+          el:"#app",
+          data:{
+            message:"Hello Vue.js!"
+          },
+          components:{
+            'my-local-component':my_local_component
+          },
+          beforeCreate:function(){
+              console.log(TAG," beforeCreate......");
+          },
+          created:function () {
+              console.log(TAG," Created......");
+          },
+          mounted:function(){
+              console.log(TAG," Mounted......");
+              this.message="Hello Vue.js!!!!";
+          },
+          updated:function(){
+              console.log(TAG," Updated......");
+          },
+          destroyed:function(){
+              console.log(TAG," Destroyed......");
+          }
+      });
+
+      new Vue({
+          el:"#app2"
+
+      });
+
+  </script>
+</body>
+</html>

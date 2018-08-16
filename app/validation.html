@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>Form Validation</title>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vuelidate@0.7.4/dist/vuelidate.min.js"></script>
+  <script src="https://unpkg.com/vuelidate@0.7.4/dist/validators.min.js"></script>
+  <style>
+    input {
+      border: 1px solid silver;
+      border-radius: 4px;
+      background: white;
+      padding: 5px 10px;
+    }
+
+    .dirty {
+      border-color: #5A5;
+      background: #EFE;
+    }
+
+    .dirty:focus {
+      outline-color: #8E8;
+    }
+
+    .error {
+      border-color: red;
+      background: #FDD;
+    }
+
+    .error:focus {
+      outline-color: #F99;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <input v-model="$v.text.$model" :class="status($v.text)">
+</div>
+<script>
+  Vue.use(window.vuelidate.default)
+  const { required, minLength } = window.validators
+
+  new Vue({
+    el: "#app",
+    data: {
+      text: ''
+    },
+    validations: {
+      text: {
+        required,
+        minLength: minLength(5)
+      }
+    },
+    methods: {
+      status(validation) {
+        return {
+          error: validation.$error,
+          dirty: validation.$dirty
+        }
+      }
+    }
+  })
+</script>
+</body>
+</html>
