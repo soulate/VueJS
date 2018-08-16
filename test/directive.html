@@ -7,12 +7,12 @@
 <body>
 <div id="app">
   <h3>디렉티브</h3>
-  <a v-if="flag">두잇 Vue.js</a>
+  <a v-if="flag">두잇 Vue.js 1</a>
   <p>{{reverseMessage}}</p>
   <ul>
     <li v-for="system in systems">{{system}}</li>
   </ul>
-  <p v-show="flag">두잇 Vue.js</p>
+  <p v-show="flag">두잇 Vue.js 2</p>
   <h5 v-bind:id="uid">뷰 입문서</h5>
   <button v-on:click="popupAlert">경고 창 버튼</button>
 </div>
