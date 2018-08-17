@@ -1,25 +1,19 @@
 import Vue from 'vue';
-import HelloComponent from './components/Hello.vue';
-import TestComponent from './components/Test.vue';
+//import HelloComponent from './components/Hello.vue';
+//import TestComponent from './components/Test.vue';
+import MenuComponent from './components/Menu.vue';
 
 new Vue({
-  el: '#app',
-  template: `
-    <div>
-      <!--
-      <div>Hello {{name}}!</div>
-      Name: <input type="text" v-model="name">
-      <hello-component :name="name" :initialEnthusiasm="5" />
-      -->
-      <hello-component :name="name" :initialEnthusiasm="5" />
-      <test-component/>
-    </div>
-  `,
-  data: {
-    name: 'World'
-  },
+
+  template:
+      `
+        <div>
+          <menu-component></menu-component>
+          <test-component></test-component>
+        </div>
+       `,
+
   components: {
-    HelloComponent,
-    TestComponent
+    MenuComponent
   }
-})
+}).$mount("#app")

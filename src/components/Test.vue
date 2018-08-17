@@ -1,7 +1,6 @@
 <template>
   <div>
     <p>{{name}}</p>
-    <button>버튼</button>
   </div>
 </template>
 
