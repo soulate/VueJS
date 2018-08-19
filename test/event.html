@@ -18,7 +18,7 @@
             template:'<button v-on:click="showLog">show</button>',
             methods:{
                 showLog:function () {
-                    //this.$emit('show-log');
+                    this.$emit('show-log');
                     console.log("안보냄.")
                 }
             }

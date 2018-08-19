@@ -1,60 +1,120 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <router-link to="/">    <button class="tablink">{{home}}</button></router-link>
+    <router-link to="/tab1"><button class="tablink">{{tab1}}</button></router-link>
+    <router-link to="/tab2"><button class="tablink">{{tab2}}</button></router-link>
+    <router-link to="/tab3"><button class="tablink">{{tab3}}</button></router-link>
+
+    <!-- 라우터가 컴포넌트 그리는 영역 -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+
+  import Vue from 'vue';
+  import HomeComponent from './components/Home.vue';
+  import Tab1Component from './components/Tab1.vue';
+  import Tab2Component from './components/Tab2.vue';
+  import Tab3Component from './components/Tab3.vue';
+  import ModalComponent from './components/Modal.vue';
+
+  const Tag = '[App.vue] ';
+
+  Vue.component('modal', ModalComponent);
+
+  export default {
+
+    name: 'app',
+
+    components:{
+      'home':HomeComponent,
+      'tab1':Tab1Component,
+      'tab2':Tab2Component,
+      'tab3':Tab3Component
+    },
+
+    beforeCreate(){
+      console.log(Tag,"beforeCreate..");
+    },
+    created(){
+      console.log(Tag,"created..");
+    },
+
+    beforeMount(){
+      console.log(Tag,"beforeMount..");
+    },
+    mounted(){
+      console.log(Tag,"mounted..");
+      //document.getElementById('default').click();
+    },
+
+    beforeUpdate(){
+      console.log(Tag,"beforeUpdate..");
+    },
+    updated(){
+      console.log(Tag,"updated..");
+    },
+
+    beforeDestroy(){
+      console.log(Tag,"beforeDestroy..");
+    },
+    destroyed(){
+      console.log(Tag,"destroyed..");
+    },
+
+    data(){
+
+      return {
+
+        'home' : 'Home',
+        'tab1' : 'Validation',
+        'tab2' : 'Mask',
+        'tab3' : 'Modal',
+
+        'homeColor' : 'red',
+        'tab1Color' : 'green',
+        'tab2Color' : 'blue',
+        'tab3Color' : 'orange'
+      }
+    },
+
+    methods:{
+      goPage(index,color){
+
+      }
     }
+
   }
-}
+
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  * {box-sizing: border-box}
 
-h1, h2 {
-  font-weight: normal;
-}
+  /* Set height of body and the document to 100% */
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial;
+  }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+  /* Style tab links */
+  .tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+  }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
+  .tablink:hover {
+    background-color: #777;
+  }
 
-a {
-  color: #42b983;
-}
 </style>
+

@@ -1,18 +1,20 @@
 <template>
   <div class="tabcontent">
-    <h3>Validation</h3>
+    <h3>Home</h3>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "Tab1"
-    }
+
+  export default {
+
+  }
+
 </script>
 
 <style scoped>
   .tabcontent {
-    background-color: orange;
+    background-color: lightblue;
     padding-left: 15px;
     padding-top: 40px;
 

@@ -1,7 +1,6 @@
 <template>
-  <div id="News" class="tabcontent">
-    <h3>News</h3>
-    <p>Some news this fine day!</p>
+  <div class="tabcontent">
+    <h3>Mask</h3>
   </div>
 </template>
 
@@ -12,5 +11,10 @@
 </script>
 
 <style scoped>
+  .tabcontent {
+    background-color: mediumpurple;
+    padding-left: 15px;
+    padding-top: 40px;
 
+  }
 </style>
