@@ -1,6 +1,6 @@
 <template>
   <div class="tabcontent">
-    <h3>Modal</h3>
+    <h3 v-if="title != ''">{{title}}</h3>
 
     <button class="btn-green" @click="openAlert">{{alert}}</button>
     <button class="btn-green" @click="openConfirm">{{confirm}}</button>
@@ -34,6 +34,7 @@
           alert:'Alert',
           confirm:'Confirm',
           show: false,
+          title:'',
           modal : {
             title : '',
             contents : '',
@@ -41,6 +42,10 @@
             buttons : []
           },
         }
+      },
+
+      beforeMount () {
+        this.title = this.$route.query.title || 'Modal';
       },
 
       methods: {
@@ -76,19 +81,14 @@
 
 <style scoped>
 
-  .tabcontent {
-    background-color: darkseagreen;
-    padding-left: 15px;
-    padding-top: 40px;
-  }
-
   .btn-green {
     color: white;
     background: #4AAE9B;
     border: 1px solid #4AAE9B;
     border-radius: 2px;
-    font-size: 10px;
-    height: 25px;
+    font-size: 20px;
+    height: 40px;
+    width: 100px;
 
   }
 

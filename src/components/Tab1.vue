@@ -1,6 +1,6 @@
 <template>
   <div class="tabcontent">
-    <h3>Validation</h3>
+    <h3 v-if="title != ''">{{title}}</h3>
     <div>
       <label>한글만 입력</label>
       <input type='text' placeholder="한글만 입력"  data-valid="kor" v-model="input1"/>
@@ -48,8 +48,13 @@
       name: "Tab1",
       data () {
         return {
-          input1: ''
+          input1: '',
+          title: ''
         }
+      },
+
+      beforeMount () {
+        this.title = this.$route.query.title || 'Validation';
       },
 
       created () {
@@ -81,10 +86,5 @@
 </script>
 
 <style scoped>
-  .tabcontent {
-    background-color: orange;
-    padding-left: 15px;
-    padding-top: 40px;
 
-  }
 </style>

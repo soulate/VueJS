@@ -1,20 +1,25 @@
 <template>
   <div class="tabcontent">
-    <h3>Mask</h3>
+    <h3 v-if="title != ''">{{title}}</h3>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "Tab2"
-    }
+  export default {
+    name: "Tab2",
+    data () {
+      return {
+        title: ''
+      }
+    },
+
+    beforeMount () {
+      this.title = this.$route.query.title || 'Mask';
+    },
+
+  }
 </script>
 
 <style scoped>
-  .tabcontent {
-    background-color: mediumpurple;
-    padding-left: 15px;
-    padding-top: 40px;
 
-  }
 </style>

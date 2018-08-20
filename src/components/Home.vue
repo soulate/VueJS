@@ -1,6 +1,6 @@
 <template>
   <div class="tabcontent">
-    <h3>Home</h3>
+    <h3 v-if="title != ''">{{title}}</h3>
   </div>
 </template>
 
@@ -8,15 +8,20 @@
 
   export default {
 
+    data () {
+      return {
+        title: ''
+      }
+    },
+
+    beforeMount () {
+      this.title = this.$route.query.title || 'Home';
+    },
+
   }
 
 </script>
 
 <style scoped>
-  .tabcontent {
-    background-color: lightblue;
-    padding-left: 15px;
-    padding-top: 40px;
 
-  }
 </style>

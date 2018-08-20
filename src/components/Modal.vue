@@ -88,7 +88,7 @@
     overflow-x: auto;
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: 25%;
   }
 
   .modal-header,
@@ -103,6 +103,7 @@
     color: orange;
     font-weight: bold;
     justify-content: space-between;
+    font-size: 20px;
   }
 
   .modal-footer {
@@ -114,7 +115,7 @@
     position: relative;
     padding: 20px 10px;
     height: 70px;
-    font-size: 11px;
+    font-size: 18px;
   }
 
   .buttons {
@@ -124,14 +125,14 @@
   }
 
   .button {
-    font-size: 10px !important;
+    font-size: 15px !important;
     background: transparent;
     padding: 0;
     margin: 0;
     border: 0;
     cursor: pointer;
     box-sizing: border-box;
-    height: 25px;
+    height: 30px;
     color: inherit;
     font: inherit;
     outline: none;

@@ -92,6 +92,11 @@
 <style scoped>
   * {box-sizing: border-box}
 
+  .tabcontent {
+    padding-left: 15px;
+    padding-top: 40px;
+  }
+
   /* Set height of body and the document to 100% */
   body, html {
     height: 100%;
