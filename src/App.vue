@@ -89,22 +89,39 @@
 
 </script>
 
+<style>
+
+  .btn {
+    color: white;
+    background: #4AAE9B;
+    border: 1px solid #4AAE9B;
+    border-radius: 2px;
+    font-size: 18px;
+    height: 30px;
+    width: 80px;
+    cursor:pointer;
+  }
+
+  .btn_submit {
+    color: white;
+    background: orange;
+    border: 1px solid orange;
+    border-radius: 2px;
+    font-size: 18px;
+    height: 30px;
+    width: 80px;
+    cursor:pointer;
+  }
+
+</style>
+
 <style scoped>
-  * {box-sizing: border-box}
 
   .tabcontent {
     padding-left: 15px;
     padding-top: 40px;
   }
 
-  /* Set height of body and the document to 100% */
-  body, html {
-    height: 100%;
-    margin: 0;
-    font-family: Arial;
-  }
-
-  /* Style tab links */
   .tablink {
     background-color: #555;
     color: white;

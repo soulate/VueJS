@@ -2,8 +2,8 @@
   <div class="tabcontent">
     <h3 v-if="title != ''">{{title}}</h3>
 
-    <button class="btn-green" @click="openAlert">{{alert}}</button>
-    <button class="btn-green" @click="openConfirm">{{confirm}}</button>
+    <button class='btn' @click="openAlert">{{alert}}</button>
+    <button class='btn' @click="openConfirm">{{confirm}}</button>
 
     <modal v-if="show" :param="modal" @close="show = false">
 
@@ -54,7 +54,7 @@
           else this.show = true;
         },
 
-        openAlert : function (){
+        openAlert(){
             this.modal.title = 'Alert';
             this.modal.contents = '완료 되었습니다.';
             this.modal.dimClose = true;
@@ -63,7 +63,7 @@
             ];
             this.toggle();
         },
-        openConfirm : function (){
+        openConfirm(){
           this.modal.title = 'Confirm';
           this.modal.contents = ' 종료 하시겠습니까?';
           this.modal.dimClose = false;
@@ -81,15 +81,5 @@
 
 <style scoped>
 
-  .btn-green {
-    color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
-    border-radius: 2px;
-    font-size: 20px;
-    height: 40px;
-    width: 100px;
-
-  }
 
 </style>
