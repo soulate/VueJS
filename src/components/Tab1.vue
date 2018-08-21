@@ -64,12 +64,11 @@
     import Vue from 'vue';
     import VueRx from 'vue-rx'
     import { pluck } from 'rxjs/operators';
+    import { checkValid } from '../js/util';
 
     Vue.use(VueRx);
 
     const TAG = '[Tab1.vue] ';
-
-    console.clear();
 
     export default {
       name: "Tab1",
@@ -97,12 +96,11 @@
 
       created () {
 
-        const $this = this;
-        const buttons = this.$fromDOMEvent('#form button','click')
-          .pipe(
+        const buttons$ = this.$fromDOMEvent('#form button','click')
+          .pipe( // pipe 안쓰면 오류남.
             pluck('target') // target 만 추출.
           );
-        buttons.subscribe({
+        buttons$.subscribe({
           next(target){
 
             if (target.type == 'submit') return;
@@ -119,16 +117,19 @@
               'target': target.previousElementSibling
             };
 
-            //let error = $this.valid(valid,value,placeHolder,target.previousElementSibling);
-            let error = $this.valid(param);
-            span.innerText='';
-
+            //무조건 Valid N으로 세팅.
             target.dataset.validYn = 'N';
+
+            //유효성 체크 함수.
+            let error = checkValid(param);
+            span.innerText='';
 
             let msg = '[오류] '+error;
             if(error != '') {
               this.error(msg,span);
             }
+
+            //Valid 통과되면 Y로 세팅
             else if (error == ''){
               target.dataset.validYn = 'Y';
             }
@@ -141,19 +142,19 @@
       },
 
       /*
-      created () {
-        this.$watchAsObservable('input1')
-          .pipe(
-              pluck('newValue') //oldValue,newValue 두개 넘어오는데 newValue 만 뽑아냄.
-          )
-          .subscribe(
-            (val)=>{ console.log( val); }
-          )
+       this.$watchAsObservable('input1')
+        .pipe(
+            pluck('newValue') //oldValue,newValue 두개 넘어오는데 newValue 만 뽑아냄.
+        )
+        .subscribe(
+          (val)=>{ console.log( val); }
+        )
       },
       */
 
       methods: {
 
+        //모달 표시 여부 토글
         toggle(){
           this.modal.show = !this.modal.show;
         },
@@ -169,13 +170,11 @@
             { title : '취소', closeFunc : () => {
                 this.toggle();
             }},
-
           ];
           this.toggle();
         },
 
         validAll(){
-
           let isValid = true;
           //btn 클래스 click 이벤트 발생.
           let buttons = document.querySelectorAll(".btn");
@@ -192,78 +191,8 @@
           if (isValid) {
             this.save();
           }
-        },
-
-        valid(obj){
-
-          let valid = obj.valid;
-          let value = obj.value;
-          let error = obj.error;
-          let target = obj.target;
-
-          if(value=='') return this.noData;
-
-          if(valid=='kor'){
-
-            let pattern = /[^ㄱ-ㅎ가-힣]/g;
-            if(pattern.test(value)){
-              return error;
-            }
-          }
-          if(valid=='eng'){
-            let pattern = /[^a-z]/gi;
-            if(pattern.test(value)){
-              return error;
-            }
-          }
-          if(valid=='korEng'){
-            let pattern = /[^ㄱ-ㅎ가-힣a-z]/gi;
-            if(pattern.test(value)){
-              return error;
-            }
-          }
-          if(valid=='notNumber'){
-            let pattern = /[0-9]/g;
-            if(pattern.test(value)){
-              return error;
-            }
-          }
-          if(valid=='number'){
-            let pattern = /[^0-9]/g;
-            if(pattern.test(value)){
-              return error;
-            }
-          }
-          if(valid=='maxLength'){
-            let len = value.length;
-            if(len > target.dataset.maxlength){
-              return error;
-            }
-          }
-          if(valid=='maxByte'){
-
-            let byte = 0;
-            for(let i = 0 ; i < value.length ; i++){
-              if(escape(value.charAt(i)).length >= 4)
-                byte += 3;
-              else if(escape(value.charAt(i)) == "%A7") //§기호는 3Byte.
-                byte += 3;
-              else
-              if(escape(value.charAt(i)) != "%0D") // Carriage Return 제외.
-                byte++;
-            }
-            if(byte > target.dataset.maxbyte){
-              return error;
-            }
-          }
-          if(valid=='url'){
-            let pattern = /^http(s)?:\/\/(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
-            if(!pattern.test(value)){
-              return error;
-            }
-          }
-          return '';
         }
+
       }
 
     }

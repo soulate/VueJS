@@ -5,7 +5,7 @@
     <button class='btn' @click="openAlert">{{alert}}</button>
     <button class='btn' @click="openConfirm">{{confirm}}</button>
 
-    <modal v-if="modal.show" :param="modal" @close="modal.show = false">
+    <modal-component v-if="modal.show" :param="modal" @close="modal.show = false">
 
       <!--
       <div slot="header">
@@ -16,7 +16,7 @@
       </div>
       -->
 
-    </modal>
+    </modal-component>
 
   </div>
 </template>
@@ -51,6 +51,7 @@
 
       methods: {
 
+        //모달 표시 여부 토글
         toggle(){
           this.modal.show = !this.modal.show;
         },
