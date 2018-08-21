@@ -46,7 +46,7 @@
 
     data (){
       return {
-        defaultButtons : [{ title:'확인', closeFunc:this.close }]
+        defaultButtons : [{ title:'확인', closeFunc:this.close }] //기본 버튼
       }
     },
     computed : {
@@ -62,7 +62,10 @@
     },
     methods: {
       dimClose(){
-        if(this.param.dimClose) this.$emit('close');
+        //Dim 영역 클릭시 닫기 여부
+        if(this.param.dimClose){
+          this.$emit('close'); // $emit > 이벤트 트리거
+        }
       }
     }
   };

@@ -7,21 +7,27 @@
 </head>
 <body>
 <div id="app">
-    <my-component v-bind:propsdata="message"></my-component>
+    <my-component :param="send"></my-component>
 </div>
 <script src="https://unpkg.com/vue"></script>
 <script>
 
     Vue.component('my-component',
         {
-            props:['propsdata'],
-            template:'<p>{{propsdata}}</p>'
+            props:{
+              param:{
+                type:Object
+              }
+            },
+            template:'<p>{{param.message}}</p>'
         }
     );
     new Vue({
         el:"#app",
         data:{
-            message:'Welcome to Vue JS!!!'
+          send: {
+            message: 'Welcome to Vue JS!!!'
+          }
         }
 
     });
