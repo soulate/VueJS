@@ -1,6 +1,6 @@
 <template>
   <div class="tabcontent">
-    <h3 v-if="title != ''">{{title}}</h3>
+    <h2 v-if="title != ''">{{title}}</h2>
   </div>
 </template>
 

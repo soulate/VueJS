@@ -1,10 +1,10 @@
 <template>
   <div class="tabcontent">
-    <h3 v-if="title != ''">{{title}}</h3>
-    <form onsubmit="return false;">
+    <h2 v-if="title != ''">{{title}}</h2>
+    <form id="form" onsubmit="return false;">
       <div class="valid">
         <!--<label>한글만 입력</label><br/>-->
-        <input type='text' placeholder="한글만 입력"  data-valid="kor" v-model="input1"/>
+        <input type='text' placeholder="한글만 입력" data-valid="kor" v-model="input1"/>
         <button type="button" class='btn'>valid</button>
         <span class="error"></span>
       </div>
@@ -51,8 +51,11 @@
         <span class="error"></span>
       </div>
       <br/>
-      <button type="submit" class="btn_submit">전송</button>
+      <button type="submit" class="btn_submit" @click="validAll">전송</button>
     </form>
+    <modal v-if="modal.show" :param="modal" @close="modal.show = false">
+
+    </modal>
   </div>
 </template>
 
@@ -61,7 +64,12 @@
     import Vue from 'vue';
     import VueRx from 'vue-rx'
     import { pluck } from 'rxjs/operators';
+
     Vue.use(VueRx);
+
+    const TAG = '[Tab1.vue] ';
+
+    console.clear();
 
     export default {
       name: "Tab1",
@@ -69,7 +77,17 @@
         return {
           input1: '',
           title: '',
-          noData:'입력된 데이터가 없습니다.'
+          noData:'입력된 데이터가 없습니다.',
+
+          modal : {
+            title : '',
+            contents : '',
+            dimClose : false,
+            buttons : [],
+            show: false
+          },
+
+
         }
       },
 
@@ -78,48 +96,48 @@
       },
 
       created () {
-        /*
-        this.$fromDOMEvent('input','keyup')
-          .pipe(
-            pluck('target')
-          )
-          .subscribe(
-            (target) => {
-              let val = target.value;
-              let valid = target.dataset.valid;
-              console.log(val + " , " + valid);
-              if(val.length > 2){
-                target.nextElementSibling.nextElementSibling.innerText = val;
-              }else{
-                target.nextElementSibling.nextElementSibling.innerText = '';
-              }
-            }
-          );
-        */
 
-        this.$fromDOMEvent('button','click')
+        const $this = this;
+        const buttons = this.$fromDOMEvent('#form button','click')
           .pipe(
             pluck('target') // target 만 추출.
-          )
-          .subscribe(
-            (target) => {
-
-              if(target.type != 'button'){
-                this.validAll();
-                return;
-              }
-
-              let val = target.previousElementSibling.value; // value 추출
-              let valid = target.previousElementSibling.dataset.valid; //valid 속성 추출
-              let placeHolder = target.previousElementSibling.placeholder; // placeholder 속성 추출
-              let span = target.nextElementSibling; // 다음 엘리먼트 span tag
-
-              let error = this.valid(valid,val,placeHolder,target.previousElementSibling);
-              if(error!='') error = '[오류] '+error ;
-              span.innerText = error;
-
-            }
           );
+        buttons.subscribe({
+          next(target){
+
+            if (target.type == 'submit') return;
+
+            let value = target.previousElementSibling.value; // value 추출
+            let valid = target.previousElementSibling.dataset.valid; //valid 속성 추출
+            let placeHolder = target.previousElementSibling.placeholder; // placeholder 속성 추출
+            let span = target.nextElementSibling; //error 문구 span
+
+            let param = {
+              'valid': valid,
+              'value': value,
+              'error': placeHolder,
+              'target': target.previousElementSibling
+            };
+
+            //let error = $this.valid(valid,value,placeHolder,target.previousElementSibling);
+            let error = $this.valid(param);
+            span.innerText='';
+
+            target.dataset.validYn = 'N';
+
+            let msg = '[오류] '+error;
+            if(error != '') {
+              this.error(msg,span);
+            }
+            else if (error == ''){
+              target.dataset.validYn = 'Y';
+            }
+          },
+          error(error,span){
+            span.innerText = error;
+            console.log(TAG + ' ERROR >>> ', error);
+          }
+        });
       },
 
       /*
@@ -136,47 +154,82 @@
 
       methods: {
 
+        toggle(){
+          this.modal.show = !this.modal.show;
+        },
+
+        save(){
+          this.modal.title = 'Confirm';
+          this.modal.contents = ' 전송 하시겠습니까?';
+          this.modal.dimClose = false;
+          this.modal.buttons = [
+            { title : '확인', closeFunc : () => {
+                this.toggle();
+            }},
+            { title : '취소', closeFunc : () => {
+                this.toggle();
+            }},
+
+          ];
+          this.toggle();
+        },
+
         validAll(){
 
+          let isValid = true;
+          //btn 클래스 click 이벤트 발생.
           let buttons = document.querySelectorAll(".btn");
           for(let i in buttons){
             if(buttons[i].tagName == 'BUTTON') {
               buttons[i].click();
+              if( buttons[i].dataset.validYn == 'N'){
+                isValid = false;
+              }
             }
+          }
+
+          //valid가 모두 통과 됐을 경우.
+          if (isValid) {
+            this.save();
           }
         },
 
-        valid(valid,value,error,target){
+        valid(obj){
+
+          let valid = obj.valid;
+          let value = obj.value;
+          let error = obj.error;
+          let target = obj.target;
 
           if(value=='') return this.noData;
 
           if(valid=='kor'){
 
-            let pattern = /[^ㄱ-ㅎ가-힣]/;
+            let pattern = /[^ㄱ-ㅎ가-힣]/g;
             if(pattern.test(value)){
               return error;
             }
           }
           if(valid=='eng'){
-            let pattern = /[^a-z]/i;
+            let pattern = /[^a-z]/gi;
             if(pattern.test(value)){
               return error;
             }
           }
           if(valid=='korEng'){
-            let pattern = /[^ㄱ-ㅎ가-힣a-z]/i;
+            let pattern = /[^ㄱ-ㅎ가-힣a-z]/gi;
             if(pattern.test(value)){
               return error;
             }
           }
           if(valid=='notNumber'){
-            let pattern = /[0-9]/;
+            let pattern = /[0-9]/g;
             if(pattern.test(value)){
               return error;
             }
           }
           if(valid=='number'){
-            let pattern = /[^0-9]/;
+            let pattern = /[^0-9]/g;
             if(pattern.test(value)){
               return error;
             }

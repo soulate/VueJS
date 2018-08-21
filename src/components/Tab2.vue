@@ -1,6 +1,6 @@
 <template>
   <div class="tabcontent">
-    <h3 v-if="title != ''">{{title}}</h3>
+    <h2 v-if="title != ''">{{title}}</h2>
 
 
     <div class="valid">
@@ -29,6 +29,8 @@
 <script>
 
   import { TheMask } from 'vue-the-mask';
+
+  const TAG = '[Tab2.vue] ';
 
   export default {
     name: "Tab2",
