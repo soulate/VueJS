@@ -53,9 +53,9 @@
       <br/>
       <button type="submit" class="btn_submit" @click="validAll">전송</button>
     </form>
-    <modal v-if="modal.show" :param="modal" @close="modal.show = false">
+    <modal-component v-if="modal.show" :param="modal" @close="modal.show = false">
 
-    </modal>
+    </modal-component>
   </div>
 </template>
 
@@ -95,7 +95,7 @@
       },
 
       created () {
-
+        let $this = this;
         const buttons$ = this.$fromDOMEvent('#form button','click')
           .pipe( // pipe 안쓰면 오류남.
             pluck('target') // target 만 추출.
@@ -114,7 +114,8 @@
               'valid': valid,
               'value': value,
               'error': placeHolder,
-              'target': target.previousElementSibling
+              'target': target.previousElementSibling,
+              'noData':$this.noData
             };
 
             //무조건 Valid N으로 세팅.

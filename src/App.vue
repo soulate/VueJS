@@ -19,7 +19,8 @@
   import Tab3Component from './components/Tab3.vue';
   import ModalComponent from './components/Modal.vue';
 
-  Vue.component('modal-component', ModalComponent); //modal 컴포넌트 전역 컴포넌트로 추가.
+  //modal 컴포넌트 전역 컴포넌트로 등록.
+  Vue.component('modal-component', ModalComponent);
 
   const Tag = '[App.vue] ';
 

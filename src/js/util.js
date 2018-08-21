@@ -4,9 +4,10 @@ export function checkValid(obj) {
   let value = obj.value;
   let error = obj.error;
   let target = obj.target;
+  let noData = obj.noData;
 
   if(value=='') {
-    return this.noData;
+    return noData;
   }
 
   if(valid=='kor'){
