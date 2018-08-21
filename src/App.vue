@@ -19,19 +19,30 @@
   import Tab3Component from './components/Tab3.vue';
   import ModalComponent from './components/Modal.vue';
 
-  const Tag = '[App.vue] ';
+  Vue.component('modal', ModalComponent); //modal 컴포넌트 전역 컴포넌트로 추가.
 
-  Vue.component('modal', ModalComponent);
+  const Tag = '[App.vue] ';
 
   export default {
 
     name: 'app',
 
+    //컴포넌트 추가. ( router.js 에서 사용 )
     components:{
       'home':HomeComponent,
       'tab1':Tab1Component,
       'tab2':Tab2Component,
       'tab3':Tab3Component
+    },
+
+    data(){
+      return {
+        //화면별 타이틀
+        'home' : 'Home',
+        'tab1' : 'Validation',
+        'tab2' : 'Mask',
+        'tab3' : 'Modal',
+      }
     },
 
     beforeCreate(){
@@ -46,7 +57,6 @@
     },
     mounted(){
       console.log(Tag,"mounted..");
-      //document.getElementById('default').click();
     },
 
     beforeUpdate(){
@@ -62,29 +72,6 @@
     destroyed(){
       console.log(Tag,"destroyed..");
     },
-
-    data(){
-
-      return {
-
-        'home' : 'Home',
-        'tab1' : 'Validation',
-        'tab2' : 'Mask',
-        'tab3' : 'Modal',
-
-        'homeColor' : 'red',
-        'tab1Color' : 'green',
-        'tab2Color' : 'blue',
-        'tab3Color' : 'orange'
-      }
-    },
-
-    methods:{
-      goPage(index,color){
-
-      }
-    }
-
   }
 
 </script>
@@ -112,6 +99,16 @@
     width: 80px;
     cursor:pointer;
   }
+
+  .valid{
+    margin-top: 20px;
+  }
+
+  input[type=text]{
+    height: 25px;
+    width: 350px;
+  }
+
 
 </style>
 

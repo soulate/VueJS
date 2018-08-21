@@ -16,13 +16,13 @@
       </div>
       <div class="valid">
         <!--<label>한글 및 영문 입력</label><br/>-->
-        <input type='text' placeholder="한글 및 영문 입력" data-valid="kor_eng"/>
+        <input type='text' placeholder="한글 및 영문 입력" data-valid="korEng"/>
         <button type="button" class='btn'>valid</button>
         <span class="error"></span>
       </div>
       <div class="valid">
         <!--<label>한글 및 영문, 특수문자 입력</label><br/>-->
-        <input type='text' placeholder="한글 및 영문, 특수문자 입력" data-valid="not_number"/>
+        <input type='text' placeholder="한글 및 영문, 특수문자 입력" data-valid="notNumber"/>
         <button type="button" class='btn'>valid</button>
         <span class="error"></span>
       </div>
@@ -34,13 +34,13 @@
       </div>
       <div class="valid">
         <!--<label>글자 수 제한(20자)</label><br/>-->
-        <input type='text' placeholder="글자 수 제한(20자)" data-valid="max_length" data-maxlength="20"/>
+        <input type='text' placeholder="글자 수 제한(20자)" data-valid="maxLength" data-maxlength="20"/>
         <button type="button" class='btn'>valid</button>
         <span class="error"></span>
       </div>
       <div class="valid">
         <!--<label>byte 제한(50byte)</label><br/>-->
-        <input type='text' placeholder="byte 제한(50byte)" data-valid="max_byte" data-maxbyte="50"/>
+        <input type='text' placeholder="byte 제한(50byte)" data-valid="maxByte" data-maxbyte="50"/>
         <button type="button" class='btn'>valid</button>
         <span class="error"></span>
       </div>
@@ -60,9 +60,7 @@
 
     import Vue from 'vue';
     import VueRx from 'vue-rx'
-    //import { Observable, Subscription, Subject } from 'rxjs';
     import { pluck } from 'rxjs/operators';
-    //Vue.use(VueRx, { Observable, Subscription, Subject });
     Vue.use(VueRx);
 
     export default {
@@ -153,51 +151,52 @@
           if(value=='') return this.noData;
 
           if(valid=='kor'){
-            let pattern = /[^ㄱ-ㅎ가-힣]/g;
+
+            let pattern = /[^ㄱ-ㅎ가-힣]/;
             if(pattern.test(value)){
               return error;
             }
           }
           if(valid=='eng'){
-            let pattern = /[^a-z]/gi;
+            let pattern = /[^a-z]/i;
             if(pattern.test(value)){
               return error;
             }
           }
-          if(valid=='kor_eng'){
-            let pattern = /[^ㄱ-ㅎ가-힣a-z]/gi;
+          if(valid=='korEng'){
+            let pattern = /[^ㄱ-ㅎ가-힣a-z]/i;
             if(pattern.test(value)){
               return error;
             }
           }
-          if(valid=='not_number'){
-            let chk = value.search(/[0-9]/g);
-            if(chk > -1){
+          if(valid=='notNumber'){
+            let pattern = /[0-9]/;
+            if(pattern.test(value)){
               return error;
             }
           }
           if(valid=='number'){
-            let pattern = /[^0-9]/g;
+            let pattern = /[^0-9]/;
             if(pattern.test(value)){
               return error;
             }
           }
-          if(valid=='max_length'){
+          if(valid=='maxLength'){
             let len = value.length;
             if(len > target.dataset.maxlength){
               return error;
             }
           }
-          if(valid=='max_byte'){
+          if(valid=='maxByte'){
 
             let byte = 0;
             for(let i = 0 ; i < value.length ; i++){
               if(escape(value.charAt(i)).length >= 4)
                 byte += 3;
-              else if(escape(value.charAt(i)) == "%A7") //§> 3Byte
+              else if(escape(value.charAt(i)) == "%A7") //§기호는 3Byte.
                 byte += 3;
               else
-              if(escape(value.charAt(i)) != "%0D") // Carriage Return
+              if(escape(value.charAt(i)) != "%0D") // Carriage Return 제외.
                 byte++;
             }
             if(byte > target.dataset.maxbyte){
@@ -218,15 +217,6 @@
 </script>
 
 <style scoped>
-
-  input[type=text]{
-    height: 25px;
-    width: 350px;
-  }
-
-  .valid{
-    margin-top: 20px;
-  }
 
   span.error{
     color : red;
