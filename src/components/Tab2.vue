@@ -8,15 +8,15 @@
     </div>
 
     <div class="valid">
-      <the-mask type="text" mask="SSSSSSSSSSSSSSSSSSSSSS" placeholder="영어만 입력"></the-mask> <!-- 'S': {pattern: /[a-zA-Z]/}, -->
+      <the-mask type="text" mask="SSSSSSSSSSSSSSSSSSSSSS" placeholder="영문만 입력"></the-mask> <!-- 'S': {pattern: /[a-zA-Z]/}, -->
     </div>
 
     <div class="valid">
-      <the-mask type="text" mask="EEEEEEEEEEEEEEEEEEEEEE" :tokens="myTokens.korEng" placeholder="한글 및 영어 입력"></the-mask>
+      <the-mask type="text" mask="EEEEEEEEEEEEEEEEEEEEEE" :tokens="myTokens.korEng" placeholder="한글 및 영문 입력"></the-mask>
     </div>
 
     <div class="valid">
-      <the-mask type="text" mask="AAAAAAAAAAAAAAAAAAAAAA" :tokens="myTokens.notNumber" placeholder="한글 및 영어, 특수문자 입력"></the-mask>
+      <the-mask type="text" mask="AAAAAAAAAAAAAAAAAAAAAA" :tokens="myTokens.notNumber" placeholder="한글 및 영문, 특수문자 입력"></the-mask>
     </div>
 
     <div class="valid">
@@ -57,7 +57,10 @@
       }
     },
 
-    components: { TheMask },
+    //콤포넌트 추가.
+    components: {
+      TheMask
+    },
 
     beforeMount () {
       this.title = this.$route.query.title || 'Mask';

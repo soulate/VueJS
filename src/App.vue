@@ -109,7 +109,10 @@
     height: 25px;
     width: 350px;
   }
-
+  
+  span.error{
+    color : red;
+  }
 
 </style>
 

@@ -201,7 +201,5 @@
 
 <style scoped>
 
-  span.error{
-    color : red;
-  }
+
 </style>
