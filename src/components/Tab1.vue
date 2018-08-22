@@ -51,7 +51,7 @@
         <span class="error"></span>
       </div>
       <br/>
-      <button type="submit" class="btn_submit" @click="validAll">전송</button>
+      <button type="submit" class="btn_submit" @click="fnValidAll">전송</button>
     </form>
     <modal-component v-if="modal.show" :param="modal" @close="modal.show = false">
 
@@ -64,14 +64,14 @@
     import Vue from 'vue';
     import VueRx from 'vue-rx'
     import { pluck } from 'rxjs/operators';
-    import { checkValid } from '../js/util';
+    import { gFnCheckValid } from '../js/util';
 
     Vue.use(VueRx);
 
     const TAG = '[Tab1.vue] ';
 
     export default {
-      name: "Tab1",
+      name: "tab1",
       data () {
         return {
           input1: '',
@@ -84,8 +84,7 @@
             dimClose : false,
             buttons : [],
             show: false
-          },
-
+          }
 
         }
       },
@@ -122,7 +121,7 @@
             target.dataset.validYn = 'N';
 
             //유효성 체크 함수.
-            let error = checkValid(param);
+            let error = gFnCheckValid(param);
             span.innerText='';
 
             let msg = '[오류] '+error;
@@ -156,26 +155,26 @@
       methods: {
 
         //모달 표시 여부 토글
-        toggle(){
+        fnToggle(){
           this.modal.show = !this.modal.show;
         },
 
-        save(){
+        fnSave(){
           this.modal.title = 'Confirm';
           this.modal.contents = ' 전송 하시겠습니까?';
           this.modal.dimClose = false;
           this.modal.buttons = [
             { title : '확인', closeFunc : () => {
-                this.toggle();
+                this.fnToggle();
             }},
             { title : '취소', closeFunc : () => {
-                this.toggle();
+                this.fnToggle();
             }},
           ];
-          this.toggle();
+          this.fnToggle();
         },
 
-        validAll(){
+        fnValidAll(){
           let isValid = true;
           //btn 클래스 click 이벤트 발생.
           let buttons = document.querySelectorAll(".btn");
@@ -190,7 +189,7 @@
 
           //valid가 모두 통과 됐을 경우.
           if (isValid) {
-            this.save();
+            this.fnSave();
           }
         }
 

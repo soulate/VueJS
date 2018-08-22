@@ -33,7 +33,7 @@
   const TAG = '[Tab2.vue] ';
 
   export default {
-    name: "Tab2",
+    name: "tab2",
 
     data () {
       return {

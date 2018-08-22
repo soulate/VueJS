@@ -1,6 +1,6 @@
 <template>
 
-  <div class="modal-backdrop" @click="dimClose">
+  <div class="modal-backdrop" @click="fnDimClose">
     <div class="modal">
       <header class="modal-header">
         <slot name="header">
@@ -61,7 +61,7 @@
       }
     },
     methods: {
-      dimClose(){
+      fnDimClose(){
         //Dim 영역 클릭시 닫기 여부
         if(this.param.dimClose){
           this.$emit('close'); // $emit > 이벤트 트리거

@@ -2,8 +2,8 @@
   <div class="tabcontent">
     <h2 v-if="title != ''">{{title}}</h2>
 
-    <button class='btn' @click="openAlert">{{alert}}</button>
-    <button class='btn' @click="openConfirm">{{confirm}}</button>
+    <button class='btn' @click="fnOpenAlert">{{alert}}</button>
+    <button class='btn' @click="fnOpenConfirm">{{confirm}}</button>
 
     <modal-component v-if="modal.show" :param="modal" @close="modal.show = false">
 
@@ -27,7 +27,7 @@
 
     export default {
 
-      name: "Tab3",
+      name: "tab3",
 
       data(){
         return{
@@ -52,35 +52,35 @@
       methods: {
 
         //모달 표시 여부 토글
-        toggle(){
+        fnToggle(){
           this.modal.show = !this.modal.show;
         },
 
-        openAlert(){
+        fnOpenAlert(){
             this.modal.title = 'Alert';
             this.modal.contents = '완료 되었습니다.';
             this.modal.dimClose = true;
             this.modal.buttons = [
               { title : '닫기', closeFunc : () => {
-                  this.toggle();
+                  this.fnToggle();
               } }
             ];
-            this.toggle();
+            this.fnToggle();
         },
-        openConfirm(){
+        fnOpenConfirm(){
           this.modal.title = 'Confirm';
           this.modal.contents = ' 종료 하시겠습니까?';
           this.modal.dimClose = false;
           this.modal.buttons = [
             { title : '확인', closeFunc : () => {
-                this.toggle();
+                this.fnToggle();
             } },
             { title : '취소', closeFunc : () => {
-                this.toggle();
+                this.fnToggle();
             } },
             //{ title : '기타', closeFunc : () => { this.toggle(); } },
           ];
-          this.toggle();
+          this.fnToggle();
         }
       }
 

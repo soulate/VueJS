@@ -1,4 +1,4 @@
-export function checkValid(obj) {
+export function gFnCheckValid(obj) {
 
   let valid = obj.valid;
   let value = obj.value;
