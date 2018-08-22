@@ -1,4 +1,4 @@
-export function gFnCheckValid(obj) {
+export function fnCheckValid(obj) {
 
   let valid = obj.valid;
   let value = obj.value;
@@ -6,7 +6,7 @@ export function gFnCheckValid(obj) {
   let target = obj.target;
   let noData = obj.noData;
 
-  if(value=='') {
+  if(value.trim()=='') {
     return noData;
   }
 

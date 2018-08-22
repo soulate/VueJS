@@ -64,7 +64,7 @@
     import Vue from 'vue';
     import VueRx from 'vue-rx'
     import { pluck } from 'rxjs/operators';
-    import { gFnCheckValid } from '../js/util';
+    import * as Util from '../js/util';
 
     Vue.use(VueRx);
 
@@ -121,7 +121,7 @@
             target.dataset.validYn = 'N';
 
             //유효성 체크 함수.
-            let error = gFnCheckValid(param);
+            let error = Util.fnCheckValid(param);
             span.innerText='';
 
             let msg = '[오류] '+error;
@@ -136,7 +136,6 @@
           },
           error(error,span){
             span.innerText = error;
-            console.log(TAG + ' ERROR >>> ', error);
           }
         });
       },
