@@ -95,7 +95,7 @@
       },
 
       created () {
-        let $this = this;
+        const $this = this;
         const buttons$ = this.$fromDOMEvent('#form button','click')
           .pipe( // pipe 안쓰면 오류남.
             pluck('target') // target 만 추출.
