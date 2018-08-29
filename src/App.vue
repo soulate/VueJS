@@ -7,6 +7,7 @@
 
     <!-- 라우터가 컴포넌트 그리는 영역 -->
     <router-view></router-view>
+    <vue-progress-bar></vue-progress-bar>
   </div>
 </template>
 
