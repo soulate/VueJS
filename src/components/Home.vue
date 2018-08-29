@@ -23,12 +23,13 @@
       const api = 'https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json';
       this.axios.get(api).then((res) => {
 
-      this.txt = JSON.stringify(res.data);
+        this.txt = JSON.stringify(res.data);
+        console.log("!!!!!!!!! ", this._.random(20) );
 
       }).catch((error) => {
-        console.log("[ catch ] ",error);
+          console.log("[ catch ] ",error);
       }).finally(()=>{
-        console.log("[ finally ] ");
+          console.log("[ finally ] ");
       });
 
     },
