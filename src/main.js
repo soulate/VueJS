@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import 'es6-promise/auto';
+import 'es6-promise/auto'; // IE 대응
 import axios from 'axios';
 import VueAxios from 'vue-axios'; //axios 추가.
 import VueLodash from 'vue-lodash'; //lodash 추가.

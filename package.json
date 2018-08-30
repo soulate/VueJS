@@ -13,7 +13,7 @@
     "axios": "^0.18.0",
     "es6-promise": "^4.2.4",
     "lodash": "^4.17.10",
-    "npm": "^6.4.0",
+    "npm": "^6.4.1",
     "rxjs": "^6.2.2",
     "simple-vue-validator": "^0.15.1",
     "vue-axios": "^2.1.3",
