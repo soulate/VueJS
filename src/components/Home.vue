@@ -26,6 +26,7 @@
 
         this.txt = JSON.stringify(res.data);
         console.log("!!!!!!!!! ", this._.random(20) );
+        
         this.$Progress.finish();
 
       }).catch((error) => {
